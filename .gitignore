@@ -1,0 +1,5 @@
+node_modules/
+blog.db
+blog_data.json
+.DS_Store
+*.log

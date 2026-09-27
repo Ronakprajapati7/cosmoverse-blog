@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Transmission | CosmoVerse</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🌌</span>
+      <span>COSMO<span class="brand-gradient">VERSE</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Explorations</a>
+      <a href="create.html" class="btn-primary">
+        <span>✍️ Transmit Post</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Post Detail Container -->
+  <main class="container">
+    <div class="post-detail-wrap" id="postContainer">
+      <a href="index.html" class="back-link">← Back to Cosmic Archives</a>
+
+      <div id="loadingIndicator" style="text-align: center; padding: 4rem;">
+        <p style="color: var(--text-muted); font-size: 1.1rem;">Aligning deep-space radio antennas...</p>
+      </div>
+
+      <article id="articleContent" style="display: none;">
+        <!-- Banner Image -->
+        <div class="post-hero-banner">
+          <img id="postBanner" src="" alt="Cosmic Banner">
+        </div>
+
+        <!-- Header -->
+        <header class="article-header">
+          <span class="category-tag" id="postCategory">Category</span>
+          <h1 class="article-title" id="postTitle">Transmission Title</h1>
+          
+          <div class="article-meta">
+            <div class="article-meta-left">
+              <span>👨‍🚀 <strong id="postAuthor">Author</strong></span>
+              <span>📅 <span id="postDate">Date</span></span>
+              <span>⏱️ <span id="postReadTime">0 min read</span></span>
+            </div>
+
+            <div class="article-actions">
+              <button class="btn-like" id="likeBtn">
+                <span>♥</span>
+                <span id="likesCount">0</span>
+              </button>
+              <button class="btn-delete" id="deleteBtn" title="Erase transmission">
+                🗑️ Delete
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Body Content -->
+        <div class="article-body" id="postBody">
+          <!-- Injected via post.js -->
+        </div>
+
+        <!-- Comments Section -->
+        <section class="comments-section">
+          <h3 class="comments-title">
+            <span>💬 Crew Logs & Discussions</span>
+            <span class="post-count-badge" id="commentsCountBadge">0</span>
+          </h3>
+
+          <!-- Add Comment Form -->
+          <form class="comment-form" id="commentForm">
+            <input type="text" id="commentAuthor" class="comment-input" placeholder="Your Explorer Name / Call-sign" required>
+            <textarea id="commentContent" class="comment-textarea" placeholder="Log your observations, questions, or theories..." required></textarea>
+            <div>
+              <button type="submit" class="btn-primary">
+                <span>Post Transmission Log</span>
+              </button>
+            </div>
+          </form>
+
+          <!-- List of Comments -->
+          <div class="comment-list" id="commentList">
+            <!-- Injected via post.js -->
+          </div>
+        </section>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-quote">"The cosmos is within us. We are made of star-stuff." — Carl Sagan</p>
+    <p>© 2026 CosmoVerse. Web Development Submission Project.</p>
+  </footer>
+
+  <script src="post.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CosmoVerse | Deep Space & Astronomy Exploration</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🌌</span>
+      <span>COSMO<span class="brand-gradient">VERSE</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link active">Explorations</a>
+      <a href="create.html" class="btn-primary">
+        <span>✍️ Transmit Post</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Featured Spotlight Article (Hero) -->
+    <section id="heroSpotlight" class="hero-spotlight" style="display: none;">
+      <!-- Injected via JavaScript -->
+    </section>
+
+    <!-- Search & Filters Control Bar -->
+    <section class="controls-bar">
+      <div class="search-box-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search cosmic logs, celestial events, or research papers...">
+      </div>
+
+      <div class="category-chips" id="categoryChips">
+        <button class="chip-btn active" data-category="all">All Signals</button>
+        <button class="chip-btn" data-category="Deep Space">🔭 Deep Space</button>
+        <button class="chip-btn" data-category="Missions">🚀 Missions & Rockets</button>
+        <button class="chip-btn" data-category="Astrophysics">⚛️ Astrophysics</button>
+        <button class="chip-btn" data-category="Exoplanets">🪐 Exoplanets</button>
+      </div>
+    </section>
+
+    <!-- Section Header -->
+    <div class="section-header">
+      <h2 class="section-title">
+        <span>📡 Cosmic Dispatches</span>
+        <span class="post-count-badge" id="postCountBadge">Loading...</span>
+      </h2>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="posts-grid" id="postsGrid">
+      <!-- Injected dynamically via app.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" style="display: none; text-align: center; padding: 4rem 1rem;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">🛰️</div>
+      <h3 style="font-family: var(--font-title); font-size: 1.5rem; margin-bottom: 0.5rem;">No transmissions detected</h3>
+      <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Try adjusting your search query or switching categories.</p>
+      <button class="btn-secondary" onclick="resetFilters()">Reset Star Charts</button>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-quote">"Somewhere, something incredible is waiting to be known." — Carl Sagan</p>
+    <p>© 2026 CosmoVerse. Built with <span class="footer-heart">♥</span> using Node.js, Express & SQLite for Web Development.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transmit New Post | CosmoVerse</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌌</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <a href="index.html" class="nav-brand">
+      <span class="brand-icon">🌌</span>
+      <span>COSMO<span class="brand-gradient">VERSE</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Explorations</a>
+      <a href="create.html" class="btn-primary">
+        <span>✍️ Transmit Post</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="container">
+    <div class="create-card">
+      <a href="index.html" class="back-link">← Return to Orbit</a>
+
+      <h1 style="font-family: var(--font-title); font-size: 2rem; margin: 0.5rem 0 1.5rem;">
+        📡 Broadcast New Space Transmission
+      </h1>
+
+      <form id="createPostForm">
+        <!-- Title -->
+        <div class="form-group">
+          <label for="postTitle" class="form-label">Transmission Headline *</label>
+          <input type="text" id="postTitle" class="form-control" placeholder="e.g. Discovery of Phosphine in Venusian Atmosphere" required>
+        </div>
+
+        <!-- Category & Author Row -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label for="postCategory" class="form-label">Cosmic Domain *</label>
+            <select id="postCategory" class="form-control" required>
+              <option value="Deep Space">🔭 Deep Space</option>
+              <option value="Missions">🚀 Missions & Rockets</option>
+              <option value="Astrophysics">⚛️ Astrophysics</option>
+              <option value="Exoplanets">🪐 Exoplanets</option>
+              <option value="Space Tech">🛰️ Space Tech</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="postAuthor" class="form-label">Author / Mission Commander</label>
+            <input type="text" id="postAuthor" class="form-control" placeholder="e.g. Dr. Carl Thorne">
+          </div>
+        </div>
+
+        <!-- Cover Image with Preset Selection -->
+        <div class="form-group">
+          <label for="postImageUrl" class="form-label">Cover Image URL</label>
+          <input type="url" id="postImageUrl" class="form-control" placeholder="https://images.unsplash.com/...">
+          <span style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
+            Or choose one of our high-definition space telescopes captures below:
+          </span>
+
+          <div class="preset-grid">
+            <div class="preset-thumb selected" data-url="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&q=80" title="Spiral Galaxy">
+              <img src="https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=300&q=80" alt="Galaxy">
+            </div>
+            <div class="preset-thumb" data-url="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1200&q=80" title="Cosmic Nebula">
+              <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=300&q=80" alt="Nebula">
+            </div>
+            <div class="preset-thumb" data-url="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=1200&q=80" title="Jupiter & Moons">
+              <img src="https://images.unsplash.com/photo-1614732414444-096e5f1122d5?auto=format&fit=crop&w=300&q=80" alt="Jupiter">
+            </div>
+            <div class="preset-thumb" data-url="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80" title="Earth & Satellite">
+              <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=300&q=80" alt="Satellite">
+            </div>
+          </div>
+        </div>
+
+        <!-- Short Summary -->
+        <div class="form-group">
+          <label for="postSummary" class="form-label">Brief Summary / Abstract (Optional)</label>
+          <input type="text" id="postSummary" class="form-control" placeholder="A 1-2 sentence teaser for the article cards...">
+        </div>
+
+        <!-- Full Article Body -->
+        <div class="form-group">
+          <label for="postContent" class="form-label">Transmission Log Content *</label>
+          <textarea id="postContent" class="form-control" placeholder="Write your full article here. Use ### for section titles, and **bold** for highlights..." required></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem;">
+          <a href="index.html" class="btn-secondary">Cancel</a>
+          <button type="submit" class="btn-primary" id="submitBtn">
+            <span>🚀 Broadcast Transmission</span>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 CosmoVerse. Deep Space Telemetry Network.</p>
+  </footer>
+
+  <script src="create.js"></script>
+</body>
+</html>
