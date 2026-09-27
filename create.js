@@ -1,3 +1,4 @@
+// CosmoVerse - Create Post (Pure Vanilla JS & LocalStorage)
 const createPostForm = document.getElementById('createPostForm');
 const postTitle = document.getElementById('postTitle');
 const postCategory = document.getElementById('postCategory');
@@ -23,7 +24,7 @@ presetThumbs.forEach(thumb => {
 });
 
 // Form submit
-createPostForm.addEventListener('submit', async (e) => {
+createPostForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
   const title = postTitle.value.trim();
@@ -42,32 +43,20 @@ createPostForm.addEventListener('submit', async (e) => {
   submitBtn.innerHTML = `<span>🚀 Broadcasting...</span>`;
 
   try {
-    const res = await fetch('/api/posts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        title,
-        category,
-        author,
-        imageUrl,
-        summary,
-        content
-      })
+    const newPost = BlogStorage.createPost({
+      title,
+      category,
+      author,
+      imageUrl,
+      summary,
+      content
     });
 
-    const data = await res.json();
-
-    if (data.success && data.post) {
-      alert("Transmission successfully broadcast to the CosmoVerse!");
-      window.location.href = `post.html?id=${data.post.id}`;
-    } else {
-      alert(data.message || "Failed to transmit post.");
-      submitBtn.disabled = false;
-      submitBtn.innerHTML = `<span>🚀 Broadcast Transmission</span>`;
-    }
+    alert("Transmission successfully broadcast to the CosmoVerse!");
+    window.location.href = `post.html?id=${newPost.id}`;
   } catch (err) {
     console.error("Error creating post:", err);
-    alert("Connection error while broadcasting transmission.");
+    alert("Failed to broadcast transmission.");
     submitBtn.disabled = false;
     submitBtn.innerHTML = `<span>🚀 Broadcast Transmission</span>`;
   }

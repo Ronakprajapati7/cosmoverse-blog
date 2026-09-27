@@ -1,3 +1,4 @@
+// CosmoVerse - Single Post Viewer (Pure Vanilla JS & LocalStorage)
 const urlParams = new URLSearchParams(window.location.search);
 const postId = urlParams.get('id');
 
@@ -23,13 +24,12 @@ if (!postId) {
   window.location.href = 'index.html';
 }
 
-// Fetch single post
-async function loadPost() {
+// Load post details from local storage
+function loadPost() {
   try {
-    const res = await fetch(`/api/posts/${postId}`);
-    const data = await res.json();
+    const post = BlogStorage.getPostById(postId);
 
-    if (!data.success || !data.post) {
+    if (!post) {
       loadingIndicator.innerHTML = `
         <h3 style="color: var(--accent-pink);">Transmission Not Found</h3>
         <p style="margin-top: 1rem;"><a href="index.html" class="btn-secondary">Return to Orbit</a></p>
@@ -37,14 +37,14 @@ async function loadPost() {
       return;
     }
 
-    renderPost(data.post);
+    renderPost(post);
   } catch (err) {
     console.error("Error loading post:", err);
-    loadingIndicator.innerHTML = `<p style="color: var(--accent-pink);">Error connecting to deep space telemetry.</p>`;
+    loadingIndicator.innerHTML = `<p style="color: var(--accent-pink);">Error reading deep space telemetry.</p>`;
   }
 }
 
-// Render post details
+// Render post content into DOM
 function renderPost(post) {
   document.title = `${post.title} | CosmoVerse`;
   postBanner.src = post.imageUrl;
@@ -52,11 +52,11 @@ function renderPost(post) {
   postCategory.textContent = post.category;
   postTitle.textContent = post.title;
   postAuthor.textContent = post.author;
-  postDate.textContent = post.createdAt.split(' ')[0];
-  postReadTime.textContent = post.readTime;
+  postDate.textContent = post.createdAt ? post.createdAt.split(' ')[0] : 'Cosmic Era';
+  postReadTime.textContent = post.readTime || '3 min read';
   likesCount.textContent = post.likes || 0;
 
-  // Format markdown/newlines to clean HTML
+  // Format body text
   postBody.innerHTML = formatBodyContent(post.content);
 
   // Render comments
@@ -91,7 +91,7 @@ function formatBodyContent(text) {
       html += `<h2>${escapeHtml(trimmed.substring(3))}</h2>`;
     } else if (trimmed.startsWith('> ')) {
       if (inParagraph) { html += '</p>'; inParagraph = false; }
-      html += `<blockquote style="border-left: 3px solid var(--primary-cyan); padding-left: 1rem; color: var(--text-muted); font-style: italic; margin: 1rem 0;">${escapeHtml(trimmed.substring(2))}</blockquote>`;
+      html += `<blockquote style="border-left: 3px solid var(--primary-cyan); padding-left: 1rem; color: var(--text-muted); font-style: italic; margin: 1.25rem 0;">${escapeHtml(trimmed.substring(2))}</blockquote>`;
     } else {
       if (!inParagraph) {
         html += '<p>';
@@ -112,7 +112,7 @@ function formatBodyContent(text) {
 // Render comments list
 function renderComments(comments) {
   commentsCountBadge.textContent = `${comments.length} Logged`;
-  if (comments.length === 0) {
+  if (!comments || comments.length === 0) {
     commentList.innerHTML = `<p style="color: var(--text-muted); font-style: italic;">No crew observations yet. Be the first to log a transmission!</p>`;
     return;
   }
@@ -129,42 +129,34 @@ function renderComments(comments) {
 }
 
 // Like Button
-likeBtn.addEventListener('click', async () => {
+likeBtn.addEventListener('click', () => {
   try {
-    const res = await fetch(`/api/posts/${postId}/like`, { method: 'POST' });
-    const data = await res.json();
-    if (data.success) {
-      likesCount.textContent = data.likes;
-      likeBtn.style.transform = 'scale(1.2)';
-      setTimeout(() => likeBtn.style.transform = 'scale(1)', 200);
-    }
+    const newLikes = BlogStorage.likePost(postId);
+    likesCount.textContent = newLikes;
+    likeBtn.style.transform = 'scale(1.2)';
+    setTimeout(() => likeBtn.style.transform = 'scale(1)', 200);
   } catch (err) {
     console.error("Failed to like post:", err);
   }
 });
 
 // Delete Button
-deleteBtn.addEventListener('click', async () => {
+deleteBtn.addEventListener('click', () => {
   const confirmed = confirm("Are you sure you want to permanently erase this cosmic transmission?");
   if (!confirmed) return;
 
   try {
-    const res = await fetch(`/api/posts/${postId}`, { method: 'DELETE' });
-    const data = await res.json();
-    if (data.success) {
-      alert("Transmission erased from database.");
-      window.location.href = 'index.html';
-    } else {
-      alert(data.message || "Failed to delete transmission.");
-    }
+    BlogStorage.deletePost(postId);
+    alert("Transmission erased from star-charts.");
+    window.location.href = 'index.html';
   } catch (err) {
     console.error("Error deleting post:", err);
-    alert("Connection error while deleting post.");
+    alert("Failed to delete transmission.");
   }
 });
 
 // Comment submission
-commentForm.addEventListener('submit', async (e) => {
+commentForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const author = commentAuthor.value.trim();
   const content = commentContent.value.trim();
@@ -172,21 +164,12 @@ commentForm.addEventListener('submit', async (e) => {
   if (!content) return;
 
   try {
-    const res = await fetch(`/api/posts/${postId}/comments`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ author, content })
-    });
-    const data = await res.json();
-
-    if (data.success) {
-      commentContent.value = '';
-      loadPost(); // Refresh comments
-    } else {
-      alert(data.message || "Failed to submit comment.");
-    }
+    BlogStorage.addComment(postId, author, content);
+    commentContent.value = '';
+    loadPost(); // Re-render post & updated comments
   } catch (err) {
     console.error("Error submitting comment:", err);
+    alert("Failed to record observation.");
   }
 });
 
